@@ -1,0 +1,19 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+	<title>
+		
+		{% block title %}The Beehive{% endblock %}
+				
+	</title>
+
+	<body>
+	
+	    <div id="content" style="padding-left:100px">
+	        {% block content %}{% endblock %}
+	    </div>
+	    
+	</body>
+	
+</html>
