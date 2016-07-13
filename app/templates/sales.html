@@ -1,0 +1,46 @@
+{% extends "__base.html" %}
+
+{% block title %}Home | {{ block.super }}{% endblock title %}
+
+
+{% block content %}
+
+	<h2> Last sales</h2>
+
+	<a href="sales">Go to the sales page</a>
+	</br>
+	<a href="producers">Go to the producers page</a>
+	</br>
+	</br>
+	</br>
+	
+	<table>
+		<thead>
+			<tr>
+				<th>Active</th>
+				<th>Date</th>
+				<th>Start time</th>
+				<th>End time</th>
+				<th>Producers</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			
+	    	{% for s in sales %}
+	    		<tr>
+	    			<td>{{ s.is_active }}</td>
+	    			<td><a href="{{ s.id }}">{{ s.date }}</a></td>
+	    			<td>{{ s.start_time }}</td>
+	    			<td>{{ s.end_time }}</td>
+	    			<td></td>
+	    		</tr>
+	    	
+	    	{% endfor %}
+		
+		</tbody>
+		
+	</table>
+		
+
+{% endblock %}
