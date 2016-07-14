@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -9,10 +10,12 @@ class Client(models.Model):
     first_name = models.CharField(verbose_name = 'First name', max_length = 50)
     last_name = models.CharField(verbose_name = 'Last name', max_length = 50)
     address = models.TextField()
+    user = models.ForeignKey(User, unique = True)
     
 
 class Producer(models.Model):
     
+    name = models.CharField(max_length = 100)
     first_name = models.CharField(verbose_name = 'First name', max_length = 50)
     last_name = models.CharField(verbose_name = 'Last name', max_length = 50)
     address = models.TextField()
@@ -62,13 +65,13 @@ class ProductPerSale(models.Model):
 
 class Cart(models.Model):
     
-    client = models.ForeignKey(Client)
+    client = models.ForeignKey(User)
     sale = models.ForeignKey(Sale)
     products = models.ManyToManyField(Product)
 
 class Command(models.Model):
     
-    client = models.ForeignKey(Client)
+    client = models.ForeignKey(User)
     sale = models.ForeignKey(Sale)
     products = models.ManyToManyField(Product)
     

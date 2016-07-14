@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.template import RequestContext 
 from django.http import HttpResponse
+from django.contrib.auth import authenticate, login, logout
 
 from models import *
+from form import AccountForm
 
 
 def index(request):
@@ -30,9 +32,49 @@ def sales_detail(request, sale_id):
     products = []
     
     for p in producers:
-        print ProductPerSale.objects.filter(sale_id__exact = sale_id, product__producer__id = p[0])
         products.append(ProductPerSale.objects.filter(sale_id__exact = sale_id, product__producer__id = p[0]))
     
     return render(request, "sales_detail.html", {'sale': s, 'products': products})
+
+def cart(request):
     
+    if request.user.is_authenticated():
+        
+        cart = Cart.objects.filter(client__exact = request.user)[0]
+        
+        return render(request, "cart.html", {'cart': cart})
+
+def producers_list(request):
     
+    producers = Producer.objects.all().order_by('-name')
+    
+    return render(request, "producers.html", {'producers':producers})
+
+def join(request):
+    
+    if request.method == 'POST':
+
+        form = AccountForm(request.POST)
+        
+        if form.is_valid():
+            
+            #create user
+            client = User(username = form["username"].value(), first_name = form["first_name"].value(),
+                           last_name = form["last_name"].value(), email = form["email"].value(),
+                           password = form["password"].value(),
+                              is_staff = False, is_active = True, is_superuser = False)
+            client.save()
+            
+            return render(request, "creation_successful.html", {'client':client})
+            
+    else:
+        
+        form = AccountForm()
+    
+    return render(request, "join.html", {'form': form})
+
+def profile(request):
+    
+    user = request.user
+    
+    return render(request, 'profile.html', {'user': user})
