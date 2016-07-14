@@ -10,7 +10,7 @@ class Client(models.Model):
     first_name = models.CharField(verbose_name = 'First name', max_length = 50)
     last_name = models.CharField(verbose_name = 'Last name', max_length = 50)
     address = models.TextField()
-    user = models.ForeignKey(User, unique = True)
+    user = models.OneToOneField(User)
     
 
 class Producer(models.Model):
@@ -68,6 +68,7 @@ class Cart(models.Model):
     client = models.ForeignKey(User)
     sale = models.ForeignKey(Sale)
     products = models.ManyToManyField(Product)
+    quantity = models.IntegerField()
 
 class Command(models.Model):
     
