@@ -1,0 +1,27 @@
+{% extends "__base.html" %}
+
+{% block title %}Producers | {{ block.super }}{% endblock title %}
+
+
+{% block content %}
+
+	<h2> List of producers:</h2>
+
+	</br>
+	</br>
+
+	{% for p in producers %}
+		
+		<div>
+		
+			{{ p.name }}
+			
+			<img src="./../../static/producers/{{ p.id }}/{{ p.picture }}"  hspace=2 width=256 height=192 alt="My image"/>
+			
+			{{ p.description }}
+		</div>
+	
+	{% endfor %}
+	
+
+{% endblock %}

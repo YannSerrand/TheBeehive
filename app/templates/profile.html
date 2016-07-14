@@ -1,0 +1,18 @@
+{% extends "__base.html" %}
+
+{% block title %}My profile | {{ block.super }}{% endblock title %}
+
+
+{% block content %}
+
+	<h2> My profile </h2>
+	</br></br>
+	
+	<div class="lead">Username : {{ user.username }}</div>
+	<div class="lead">First name : {{ user.first_name }}</div>
+	<div class="lead">Last name : {{ user.last_name }}</div>
+	<div class="lead">Email : {{ user.email }}</div>
+
+
+
+{% endblock %}

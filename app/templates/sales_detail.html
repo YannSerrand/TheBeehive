@@ -1,44 +1,53 @@
 {% extends "__base.html" %}
 
-{% block title %}Home | {{ block.super }}{% endblock title %}
+{% block title %}Sale detail | {{ block.super }}{% endblock title %}
 
 
 {% block content %}
 
 	<h2> Sale of the {{ sale.date }}</h2>
 
-	<a href="sales">Go to the sales page</a>
-	</br>
-	<a href="producers">Go to the producers page</a>
-	</br>
 	</br>
 	</br>
 	
 	<div>
 		
 		{% for p in products %}				
-				
-			<div >
+			
+			<div>
+			
 				{% with p|first as first_product %}
-				
-					a{{ first_product.product.producer.name }}a
-					<img src="./../../static/producers/{{ first_product.product.producer.id }}/{{ first_product.product.producer.picture }}"  hspace=2 width=256 height=192 alt="My image"/>
-					{{ first_product.product.producer.description }}
-				
-				{% endwith %}
-				
-				{% for pp in p %}
-				
-					<div >
 						
-						{{ pp.product.name }} : {{ pp.product.description }}
-					
+					<div class="row">
+			    		<div class="col-sm-3">						
+								<img src="/static/producers/{{ first_product.product.producer.id }}/{{ first_product.product.producer.picture }}"  hspace=2 width=140 height=140/>
+						</div>
+						
+						<div class="col-sm-3">		
+							{{ first_product.product.producer.name }}
+							{{ first_product.product.producer.description }}
+						</div>
+						
 					</div>
-				
-				{% endfor %}
-				
+					
+					{% for pp in p %}
+					
+						<div class="row">
+	    					<div class="col-sm-3">					
+								<img src="/static/producers/{{ first_product.product.producer.id }}/{{ pp.product.picture }}"  hspace=2 width=140 height=140/>
+							</div>
+							
+							<div class="col-sm-3">								   
+						   		{{ pp.product.name }} : {{ pp.product.description }}							   		
+						   	</div>							
+						</div>							
+					
+					{% endfor %}
+						
+				{% endwith %}
+					
 			</div>
-		
+			
 		</br>
 		</br>
 			

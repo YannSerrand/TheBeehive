@@ -1,0 +1,41 @@
+
+{% extends "__base.html" %}
+
+{% block title %}Login | {{ block.super }}{% endblock title %}
+
+
+{% block content %}
+
+	<h2> Login</h2>
+	</br>
+	{% if form.errors %}
+		Your username and password didn't match. Please try again.</br></br>
+	{% endif %}
+
+	Please enter your username and password:
+	</br>
+	</br>
+	<form method="post" action="{% url 'login' %}">
+		{% csrf_token %}
+		<table>
+			<tr>
+    			<td>{{ form.username.label_tag }}</td>
+    			<td>{{ form.username }}</td>
+			</tr>
+			<tr>
+    			<td>{{ form.password.label_tag }}</td>
+    			<td>{{ form.password }}</td>
+			</tr>
+		</table>
+
+		</br>
+
+		<input type="submit" class="connect" name="connect" value="Connect" />   
+		<input type="hidden" name="next" value="{{ next }}" />
+
+ 		&nbsp;
+ 		<a href="{% url 'password_reset' %}">Forgot your password ?</a>
+ 
+ 	</form>
+
+{% endblock %}

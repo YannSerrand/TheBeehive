@@ -1,0 +1,40 @@
+{% extends "__base.html" %}
+
+{% block title %}My Cart | {{ block.super }}{% endblock title %}
+
+
+{% block content %}
+
+
+	<h2> My Cart</h2>
+	</br></br>
+	<div class="lead">	
+		Sale of {{ cart.sale.date }}
+	</div>
+	
+	{% for p in cart.products.all %}
+		<div class="row"> 
+			<div class="col-sm-3">
+				<img src="/static/producers/{{ p.producer.id }}/{{ p.picture }}"  hspace=2 width=140 height=140/>
+			</div>
+			<div class="col-sm-3"">
+				<div class="lead">{{ p.name }} : {{ p.description }}</div>
+			</div>
+			<div class="col-sm-3"">
+				<div class="lead"> $</div>
+			</div>
+		</div> 
+		
+	{% endfor %}
+	
+		<div class="row"> 
+			<div class="col-sm-6"></div>
+			<div class="col-sm-3">
+				<div class="lead">
+					Total : $$
+				</div>
+			</div>
+	</br>
+	</br>
+	
+{% endblock %}

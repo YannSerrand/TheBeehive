@@ -1,0 +1,31 @@
+{% extends "__base.html" %}
+
+{% block title %}Create an account | {{ block.super }}{% endblock title %}
+
+
+{% block content %}
+
+	<h2> Want to join The Beehive ?</h2>
+	
+	</br>
+	</br>
+	</br>
+
+	If you want to join The Beehive, just fill in the form below ! 
+	
+	</br>
+	</br>
+	
+	<div>
+		<form enctype="multipart/form-data" method="post" action=".">
+	
+	    
+	    
+	    {% csrf_token %}
+	        <table class="table">
+	            {{ form.as_table }}
+	        </table>
+	        <p><input type="submit" value="Submit"></p>
+	    </form>
+	</div>
+{% endblock %}
