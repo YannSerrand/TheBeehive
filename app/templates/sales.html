@@ -6,14 +6,14 @@
 {% block content %}
 
 	<h2> Last sales</h2>
-
+{{ today }}
 	</br>
 	</br>
 	
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Active</th>
+				<th>Status</th>
 				<th>Date</th>
 				<th>Start time</th>
 				<th>End time</th>
@@ -25,11 +25,20 @@
 			
 	    	{% for s in sales %}
 	    		<tr>
-	    			<td>{{ s.is_active }}</td>
-	    			<td><a href="{{ s.id }}">{{ s.date }}</a></td>
-	    			<td>{{ s.start_time }}</td>
-	    			<td>{{ s.end_time }}</td>
-	    			<td></td>
+	    			<td>{% if s.is_active %}
+	    					<div class="lead">Ongoing sale</div>
+	    				{% else %}
+	    					{% if today > s.date %}
+	    						Finished
+	    					{% else %}
+	    						Under preparation
+	    					{% endif %}
+	    				 {% endif %}
+	    			</td>
+	    			<td>{% if s.is_active %}<div class="lead">{% endif %}<a href="{{ s.id }}">{{ s.date }}</a>{% if s.is_active %}</div>{% endif %}	</td>
+	    			<td>{% if s.is_active %}<div class="lead">{% endif %}{{ s.start_time }}{% if s.is_active %}</div>{% endif %}</td>
+	    			<td>{% if s.is_active %}<div class="lead">{% endif %}{{ s.end_time }}{% if s.is_active %}</div>{% endif %}</td>
+	    			<td></td>	    			
 	    		</tr>
 	    	
 	    	{% endfor %}

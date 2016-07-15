@@ -6,9 +6,12 @@
 {% block content %}
 
 	<h2> Sale of the {{ sale.date }}</h2>
+	</br></br>
+	<div class="lead">
+		The distribution will be held at The Amaryllis Bar from {{ sale.start_time }} to {{ sale.end_time }}.
+	</div>
 
-	</br>
-	</br>
+	</br></br>
 	
 	<div>
 		
@@ -24,32 +27,40 @@
 						</div>
 						
 						<div class="col-sm-3">		
-							{{ first_product.product.producer.name }}
+							<div class="lead">{{ first_product.product.producer.name }}</div>
 							{{ first_product.product.producer.description }}
 						</div>
 						
 					</div>
 					
-					{% for pp in p %}
 					
-						<div class="row">
-	    					<div class="col-sm-3">					
-								<img src="/static/producers/{{ first_product.product.producer.id }}/{{ pp.product.picture }}"  hspace=2 width=140 height=140/>
-							</div>
-							
-							<div class="col-sm-3">								   
-						   		{{ pp.product.name }} : {{ pp.product.description }}							   		
-						   	</div>							
-						</div>							
-					
-					{% endfor %}
+					<table class="table">		
+						<thead>
+							<tr>
+								<th></th>
+								<th>Description</th>
+								<th>Price</th>
+								<th>Quantity</th>
+							</tr>
+						</thead>
 						
+						<tbody>
+							{% for pp in p %}
+								<tr>
+									<td><img src="/static/producers/{{ first_product.product.producer.id }}/{{ pp.product.picture }}"  hspace=2 width=140 height=140/></td>
+									<td>{{ pp.product.name }} : {{ pp.product.description }}</td>	
+									<td>{{ pp.product.price }}NZD$ per {{ pp.product.quantity }}{{ pp.product.unit.name }}</td>							   	
+									<td>{% if sale.is_active %}<input type="number" name="quantity" min="0" max="{{ pp.available_quantity }}">{% endif %}</td>
+								</tr>
+	  						{% endfor %}
+						</tbody>	
+					</table>			
+					
 				{% endwith %}
 					
 			</div>
 			
-		</br>
-		</br>
+		</br></br>
 			
 		{% endfor %} 
 		

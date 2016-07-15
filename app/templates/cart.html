@@ -12,28 +12,33 @@
 		Sale of {{ cart.sale.date }}
 	</div>
 	
-	{% for p in cart.products.all %}
-		<div class="row"> 
-			<div class="col-sm-3">
-				<img src="/static/producers/{{ p.producer.id }}/{{ p.picture }}"  hspace=2 width=140 height=140/>
-			</div>
-			<div class="col-sm-3"">
-				<div class="lead">{{ p.name }} : {{ p.description }}</div>
-			</div>
-			<div class="col-sm-3"">
-				<div class="lead"> $</div>
-			</div>
-		</div> 
-		
-	{% endfor %}
+	<table class="table">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Description</th>
+				<th>Price</th>
+				<th>Quantity</th>
+				<th>Cost</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for content in cart.cart_content.all %}	
+				<tr>
+					<td><img src="/static/producers/{{ content.product.producer.id }}/{{ content.product.picture }}"  hspace=2 width=140 height=140/></td>
+					<td>{{ content.product.name }} : {{ content.product.description }}</td>	
+					<td>{{ content.product.price }}NZD$ per {{ content.product.quantity }}{{ content.product.unit.name }}</td>							   	
+					<td>{{ content.quantity }}</td>
+					<td>{{ content.cost }}$</td>
+				</tr>		
+			{% endfor %}
+			<tr>
+				<td></td><td></td><td></td>
+				<td><div class="lead">Total:</div></td><td><div class="lead">{{ total }}$</div></td>
+			</tr>
+		</tbody>
 	
-		<div class="row"> 
-			<div class="col-sm-6"></div>
-			<div class="col-sm-3">
-				<div class="lead">
-					Total : $$
-				</div>
-			</div>
+	</table>
 	</br>
 	</br>
 	
