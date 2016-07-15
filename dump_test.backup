@@ -1,0 +1,2401 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.2.9
+-- Dumped by pg_dump version 9.2.9
+-- Started on 2016-07-15 06:13:38
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 213 (class 3079 OID 11727)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2247 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 188 (class 1259 OID 98399)
+-- Name: app_cart; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE app_cart (
+    id integer NOT NULL,
+    client_id integer NOT NULL,
+    sale_id integer NOT NULL
+);
+
+
+ALTER TABLE public.app_cart OWNER TO queen;
+
+--
+-- TOC entry 210 (class 1259 OID 106653)
+-- Name: app_cart_cart_content; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE app_cart_cart_content (
+    id integer NOT NULL,
+    cart_id integer NOT NULL,
+    cartcontent_id integer NOT NULL
+);
+
+
+ALTER TABLE public.app_cart_cart_content OWNER TO queen;
+
+--
+-- TOC entry 209 (class 1259 OID 106651)
+-- Name: app_cart_cart_content_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE app_cart_cart_content_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_cart_cart_content_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2248 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: app_cart_cart_content_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE app_cart_cart_content_id_seq OWNED BY app_cart_cart_content.id;
+
+
+--
+-- TOC entry 187 (class 1259 OID 98397)
+-- Name: app_cart_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE app_cart_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_cart_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2249 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: app_cart_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE app_cart_id_seq OWNED BY app_cart.id;
+
+
+--
+-- TOC entry 206 (class 1259 OID 106637)
+-- Name: app_cartcontent; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE app_cartcontent (
+    id integer NOT NULL,
+    quantity integer NOT NULL,
+    product_id integer NOT NULL
+);
+
+
+ALTER TABLE public.app_cartcontent OWNER TO queen;
+
+--
+-- TOC entry 205 (class 1259 OID 106635)
+-- Name: app_cartcontent_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE app_cartcontent_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_cartcontent_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2250 (class 0 OID 0)
+-- Dependencies: 205
+-- Name: app_cartcontent_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE app_cartcontent_id_seq OWNED BY app_cartcontent.id;
+
+
+--
+-- TOC entry 190 (class 1259 OID 98407)
+-- Name: app_client; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE app_client (
+    id integer NOT NULL,
+    first_name character varying(50) NOT NULL,
+    last_name character varying(50) NOT NULL,
+    address text NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.app_client OWNER TO queen;
+
+--
+-- TOC entry 189 (class 1259 OID 98405)
+-- Name: app_client_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE app_client_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_client_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2251 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: app_client_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE app_client_id_seq OWNED BY app_client.id;
+
+
+--
+-- TOC entry 192 (class 1259 OID 98418)
+-- Name: app_command; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE app_command (
+    id integer NOT NULL,
+    client_id integer NOT NULL,
+    sale_id integer NOT NULL
+);
+
+
+ALTER TABLE public.app_command OWNER TO queen;
+
+--
+-- TOC entry 212 (class 1259 OID 106661)
+-- Name: app_command_command_content; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE app_command_command_content (
+    id integer NOT NULL,
+    command_id integer NOT NULL,
+    commandcontent_id integer NOT NULL
+);
+
+
+ALTER TABLE public.app_command_command_content OWNER TO queen;
+
+--
+-- TOC entry 211 (class 1259 OID 106659)
+-- Name: app_command_command_content_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE app_command_command_content_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_command_command_content_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2252 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: app_command_command_content_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE app_command_command_content_id_seq OWNED BY app_command_command_content.id;
+
+
+--
+-- TOC entry 191 (class 1259 OID 98416)
+-- Name: app_command_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE app_command_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_command_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2253 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: app_command_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE app_command_id_seq OWNED BY app_command.id;
+
+
+--
+-- TOC entry 208 (class 1259 OID 106645)
+-- Name: app_commandcontent; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE app_commandcontent (
+    id integer NOT NULL,
+    quantity integer NOT NULL,
+    product_id integer NOT NULL
+);
+
+
+ALTER TABLE public.app_commandcontent OWNER TO queen;
+
+--
+-- TOC entry 207 (class 1259 OID 106643)
+-- Name: app_commandcontent_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE app_commandcontent_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_commandcontent_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2254 (class 0 OID 0)
+-- Dependencies: 207
+-- Name: app_commandcontent_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE app_commandcontent_id_seq OWNED BY app_commandcontent.id;
+
+
+--
+-- TOC entry 194 (class 1259 OID 98426)
+-- Name: app_producer; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE app_producer (
+    id integer NOT NULL,
+    first_name character varying(50) NOT NULL,
+    last_name character varying(50) NOT NULL,
+    address text NOT NULL,
+    description text NOT NULL,
+    picture character varying(100) NOT NULL,
+    organic boolean NOT NULL,
+    name character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.app_producer OWNER TO queen;
+
+--
+-- TOC entry 193 (class 1259 OID 98424)
+-- Name: app_producer_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE app_producer_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_producer_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2255 (class 0 OID 0)
+-- Dependencies: 193
+-- Name: app_producer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE app_producer_id_seq OWNED BY app_producer.id;
+
+
+--
+-- TOC entry 196 (class 1259 OID 98437)
+-- Name: app_product; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE app_product (
+    id integer NOT NULL,
+    name character varying(200) NOT NULL,
+    description text NOT NULL,
+    quantity double precision NOT NULL,
+    price double precision NOT NULL,
+    picture character varying(100) NOT NULL,
+    producer_id integer NOT NULL,
+    product_type_id integer NOT NULL,
+    unit_id integer NOT NULL
+);
+
+
+ALTER TABLE public.app_product OWNER TO queen;
+
+--
+-- TOC entry 195 (class 1259 OID 98435)
+-- Name: app_product_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE app_product_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_product_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2256 (class 0 OID 0)
+-- Dependencies: 195
+-- Name: app_product_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE app_product_id_seq OWNED BY app_product.id;
+
+
+--
+-- TOC entry 198 (class 1259 OID 98448)
+-- Name: app_productpersale; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE app_productpersale (
+    id integer NOT NULL,
+    initial_quantity integer NOT NULL,
+    available_quantity integer NOT NULL,
+    product_id integer NOT NULL,
+    sale_id integer NOT NULL
+);
+
+
+ALTER TABLE public.app_productpersale OWNER TO queen;
+
+--
+-- TOC entry 197 (class 1259 OID 98446)
+-- Name: app_productpersale_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE app_productpersale_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_productpersale_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2257 (class 0 OID 0)
+-- Dependencies: 197
+-- Name: app_productpersale_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE app_productpersale_id_seq OWNED BY app_productpersale.id;
+
+
+--
+-- TOC entry 200 (class 1259 OID 98456)
+-- Name: app_producttype; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE app_producttype (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    description text NOT NULL
+);
+
+
+ALTER TABLE public.app_producttype OWNER TO queen;
+
+--
+-- TOC entry 199 (class 1259 OID 98454)
+-- Name: app_producttype_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE app_producttype_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_producttype_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2258 (class 0 OID 0)
+-- Dependencies: 199
+-- Name: app_producttype_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE app_producttype_id_seq OWNED BY app_producttype.id;
+
+
+--
+-- TOC entry 202 (class 1259 OID 98467)
+-- Name: app_sale; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE app_sale (
+    id integer NOT NULL,
+    date date NOT NULL,
+    start_time time without time zone NOT NULL,
+    end_time time without time zone NOT NULL,
+    is_active boolean NOT NULL
+);
+
+
+ALTER TABLE public.app_sale OWNER TO queen;
+
+--
+-- TOC entry 201 (class 1259 OID 98465)
+-- Name: app_sale_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE app_sale_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_sale_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2259 (class 0 OID 0)
+-- Dependencies: 201
+-- Name: app_sale_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE app_sale_id_seq OWNED BY app_sale.id;
+
+
+--
+-- TOC entry 204 (class 1259 OID 98475)
+-- Name: app_unittype; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE app_unittype (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.app_unittype OWNER TO queen;
+
+--
+-- TOC entry 203 (class 1259 OID 98473)
+-- Name: app_unittype_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE app_unittype_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.app_unittype_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2260 (class 0 OID 0)
+-- Dependencies: 203
+-- Name: app_unittype_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE app_unittype_id_seq OWNED BY app_unittype.id;
+
+
+--
+-- TOC entry 175 (class 1259 OID 90249)
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO queen;
+
+--
+-- TOC entry 174 (class 1259 OID 90247)
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2261 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- TOC entry 177 (class 1259 OID 90259)
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO queen;
+
+--
+-- TOC entry 176 (class 1259 OID 90257)
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2262 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- TOC entry 173 (class 1259 OID 90241)
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO queen;
+
+--
+-- TOC entry 172 (class 1259 OID 90239)
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2263 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- TOC entry 179 (class 1259 OID 90267)
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(30) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO queen;
+
+--
+-- TOC entry 181 (class 1259 OID 90277)
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO queen;
+
+--
+-- TOC entry 180 (class 1259 OID 90275)
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2264 (class 0 OID 0)
+-- Dependencies: 180
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- TOC entry 178 (class 1259 OID 90265)
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2265 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- TOC entry 183 (class 1259 OID 90285)
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO queen;
+
+--
+-- TOC entry 182 (class 1259 OID 90283)
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2266 (class 0 OID 0)
+-- Dependencies: 182
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- TOC entry 185 (class 1259 OID 90345)
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO queen;
+
+--
+-- TOC entry 184 (class 1259 OID 90343)
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2267 (class 0 OID 0)
+-- Dependencies: 184
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- TOC entry 171 (class 1259 OID 90231)
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO queen;
+
+--
+-- TOC entry 170 (class 1259 OID 90229)
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2268 (class 0 OID 0)
+-- Dependencies: 170
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- TOC entry 169 (class 1259 OID 90220)
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO queen;
+
+--
+-- TOC entry 168 (class 1259 OID 90218)
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: queen
+--
+
+CREATE SEQUENCE django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO queen;
+
+--
+-- TOC entry 2269 (class 0 OID 0)
+-- Dependencies: 168
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: queen
+--
+
+ALTER SEQUENCE django_migrations_id_seq OWNED BY django_migrations.id;
+
+
+--
+-- TOC entry 186 (class 1259 OID 90368)
+-- Name: django_session; Type: TABLE; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO queen;
+
+--
+-- TOC entry 1957 (class 2604 OID 98402)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_cart ALTER COLUMN id SET DEFAULT nextval('app_cart_id_seq'::regclass);
+
+
+--
+-- TOC entry 1968 (class 2604 OID 106656)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_cart_cart_content ALTER COLUMN id SET DEFAULT nextval('app_cart_cart_content_id_seq'::regclass);
+
+
+--
+-- TOC entry 1966 (class 2604 OID 106640)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_cartcontent ALTER COLUMN id SET DEFAULT nextval('app_cartcontent_id_seq'::regclass);
+
+
+--
+-- TOC entry 1958 (class 2604 OID 98410)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_client ALTER COLUMN id SET DEFAULT nextval('app_client_id_seq'::regclass);
+
+
+--
+-- TOC entry 1959 (class 2604 OID 98421)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_command ALTER COLUMN id SET DEFAULT nextval('app_command_id_seq'::regclass);
+
+
+--
+-- TOC entry 1969 (class 2604 OID 106664)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_command_command_content ALTER COLUMN id SET DEFAULT nextval('app_command_command_content_id_seq'::regclass);
+
+
+--
+-- TOC entry 1967 (class 2604 OID 106648)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_commandcontent ALTER COLUMN id SET DEFAULT nextval('app_commandcontent_id_seq'::regclass);
+
+
+--
+-- TOC entry 1960 (class 2604 OID 98429)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_producer ALTER COLUMN id SET DEFAULT nextval('app_producer_id_seq'::regclass);
+
+
+--
+-- TOC entry 1961 (class 2604 OID 98440)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_product ALTER COLUMN id SET DEFAULT nextval('app_product_id_seq'::regclass);
+
+
+--
+-- TOC entry 1962 (class 2604 OID 98451)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_productpersale ALTER COLUMN id SET DEFAULT nextval('app_productpersale_id_seq'::regclass);
+
+
+--
+-- TOC entry 1963 (class 2604 OID 98459)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_producttype ALTER COLUMN id SET DEFAULT nextval('app_producttype_id_seq'::regclass);
+
+
+--
+-- TOC entry 1964 (class 2604 OID 98470)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_sale ALTER COLUMN id SET DEFAULT nextval('app_sale_id_seq'::regclass);
+
+
+--
+-- TOC entry 1965 (class 2604 OID 98478)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_unittype ALTER COLUMN id SET DEFAULT nextval('app_unittype_id_seq'::regclass);
+
+
+--
+-- TOC entry 1950 (class 2604 OID 90252)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- TOC entry 1951 (class 2604 OID 90262)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- TOC entry 1949 (class 2604 OID 90244)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- TOC entry 1952 (class 2604 OID 90270)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- TOC entry 1953 (class 2604 OID 90280)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- TOC entry 1954 (class 2604 OID 90288)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- TOC entry 1955 (class 2604 OID 90348)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- TOC entry 1948 (class 2604 OID 90234)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- TOC entry 1947 (class 2604 OID 90223)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY django_migrations ALTER COLUMN id SET DEFAULT nextval('django_migrations_id_seq'::regclass);
+
+
+--
+-- TOC entry 2215 (class 0 OID 98399)
+-- Dependencies: 188
+-- Data for Name: app_cart; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY app_cart (id, client_id, sale_id) FROM stdin;
+1	2	2
+\.
+
+
+--
+-- TOC entry 2237 (class 0 OID 106653)
+-- Dependencies: 210
+-- Data for Name: app_cart_cart_content; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY app_cart_cart_content (id, cart_id, cartcontent_id) FROM stdin;
+1	1	1
+2	1	2
+\.
+
+
+--
+-- TOC entry 2270 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: app_cart_cart_content_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('app_cart_cart_content_id_seq', 1, false);
+
+
+--
+-- TOC entry 2271 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: app_cart_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('app_cart_id_seq', 1, false);
+
+
+--
+-- TOC entry 2233 (class 0 OID 106637)
+-- Dependencies: 206
+-- Data for Name: app_cartcontent; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY app_cartcontent (id, quantity, product_id) FROM stdin;
+1	2	1
+2	1	2
+\.
+
+
+--
+-- TOC entry 2272 (class 0 OID 0)
+-- Dependencies: 205
+-- Name: app_cartcontent_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('app_cartcontent_id_seq', 1, false);
+
+
+--
+-- TOC entry 2217 (class 0 OID 98407)
+-- Dependencies: 190
+-- Data for Name: app_client; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY app_client (id, first_name, last_name, address, user_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2273 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: app_client_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('app_client_id_seq', 1, false);
+
+
+--
+-- TOC entry 2219 (class 0 OID 98418)
+-- Dependencies: 192
+-- Data for Name: app_command; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY app_command (id, client_id, sale_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2239 (class 0 OID 106661)
+-- Dependencies: 212
+-- Data for Name: app_command_command_content; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY app_command_command_content (id, command_id, commandcontent_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2274 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: app_command_command_content_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('app_command_command_content_id_seq', 1, false);
+
+
+--
+-- TOC entry 2275 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: app_command_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('app_command_id_seq', 1, false);
+
+
+--
+-- TOC entry 2235 (class 0 OID 106645)
+-- Dependencies: 208
+-- Data for Name: app_commandcontent; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY app_commandcontent (id, quantity, product_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2276 (class 0 OID 0)
+-- Dependencies: 207
+-- Name: app_commandcontent_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('app_commandcontent_id_seq', 1, false);
+
+
+--
+-- TOC entry 2221 (class 0 OID 98426)
+-- Dependencies: 194
+-- Data for Name: app_producer; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY app_producer (id, first_name, last_name, address, description, picture, organic, name) FROM stdin;
+1	Fon	Terra	North Is.	No description	fonterra.png	f	Fonterra
+2	He	LLers	Somewhere	No description	Hellers.jpg	f	Hellers
+\.
+
+
+--
+-- TOC entry 2277 (class 0 OID 0)
+-- Dependencies: 193
+-- Name: app_producer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('app_producer_id_seq', 1, false);
+
+
+--
+-- TOC entry 2223 (class 0 OID 98437)
+-- Dependencies: 196
+-- Data for Name: app_product; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY app_product (id, name, description, quantity, price, picture, producer_id, product_type_id, unit_id) FROM stdin;
+2	Milk	Cow milk	1	2.5	none.jpg	1	2	3
+3	Italian pepperoni	A bit spicy	100	3	italian_salami.jpg	2	1	2
+1	Streaky bacon	Manuka smoked	400	7	streaky_bacon.jpg	2	1	2
+\.
+
+
+--
+-- TOC entry 2278 (class 0 OID 0)
+-- Dependencies: 195
+-- Name: app_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('app_product_id_seq', 1, false);
+
+
+--
+-- TOC entry 2225 (class 0 OID 98448)
+-- Dependencies: 198
+-- Data for Name: app_productpersale; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY app_productpersale (id, initial_quantity, available_quantity, product_id, sale_id) FROM stdin;
+1	10	10	1	2
+2	20	20	2	2
+3	5	3	3	2
+\.
+
+
+--
+-- TOC entry 2279 (class 0 OID 0)
+-- Dependencies: 197
+-- Name: app_productpersale_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('app_productpersale_id_seq', 1, false);
+
+
+--
+-- TOC entry 2227 (class 0 OID 98456)
+-- Dependencies: 200
+-- Data for Name: app_producttype; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY app_producttype (id, name, description) FROM stdin;
+1	Meat	Meat
+2	Dairy	Dairy
+3	Vegetables	Veggies
+\.
+
+
+--
+-- TOC entry 2280 (class 0 OID 0)
+-- Dependencies: 199
+-- Name: app_producttype_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('app_producttype_id_seq', 1, false);
+
+
+--
+-- TOC entry 2229 (class 0 OID 98467)
+-- Dependencies: 202
+-- Data for Name: app_sale; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY app_sale (id, date, start_time, end_time, is_active) FROM stdin;
+1	2016-06-28	17:00:00	19:00:00	f
+2	2016-07-12	17:00:00	19:00:00	f
+3	2016-07-20	17:00:00	19:00:00	t
+4	2016-07-27	17:00:00	19:00:00	f
+\.
+
+
+--
+-- TOC entry 2281 (class 0 OID 0)
+-- Dependencies: 201
+-- Name: app_sale_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('app_sale_id_seq', 1, false);
+
+
+--
+-- TOC entry 2231 (class 0 OID 98475)
+-- Dependencies: 204
+-- Data for Name: app_unittype; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY app_unittype (id, name) FROM stdin;
+1	kg
+2	g
+3	L
+4	mL
+\.
+
+
+--
+-- TOC entry 2282 (class 0 OID 0)
+-- Dependencies: 203
+-- Name: app_unittype_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('app_unittype_id_seq', 1, false);
+
+
+--
+-- TOC entry 2202 (class 0 OID 90249)
+-- Dependencies: 175
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2283 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- TOC entry 2204 (class 0 OID 90259)
+-- Dependencies: 177
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2284 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- TOC entry 2200 (class 0 OID 90241)
+-- Dependencies: 173
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can add permission	2	add_permission
+5	Can change permission	2	change_permission
+6	Can delete permission	2	delete_permission
+7	Can add group	3	add_group
+8	Can change group	3	change_group
+9	Can delete group	3	delete_group
+10	Can add user	4	add_user
+11	Can change user	4	change_user
+12	Can delete user	4	delete_user
+13	Can add content type	5	add_contenttype
+14	Can change content type	5	change_contenttype
+15	Can delete content type	5	delete_contenttype
+16	Can add session	6	add_session
+17	Can change session	6	change_session
+18	Can delete session	6	delete_session
+19	Can add client	7	add_client
+20	Can change client	7	change_client
+21	Can delete client	7	delete_client
+22	Can add producer	8	add_producer
+23	Can change producer	8	change_producer
+24	Can delete producer	8	delete_producer
+25	Can add unit type	9	add_unittype
+26	Can change unit type	9	change_unittype
+27	Can delete unit type	9	delete_unittype
+28	Can add product type	10	add_producttype
+29	Can change product type	10	change_producttype
+30	Can delete product type	10	delete_producttype
+31	Can add product	11	add_product
+32	Can change product	11	change_product
+33	Can delete product	11	delete_product
+34	Can add sale	12	add_sale
+35	Can change sale	12	change_sale
+36	Can delete sale	12	delete_sale
+37	Can add product per sale	13	add_productpersale
+38	Can change product per sale	13	change_productpersale
+39	Can delete product per sale	13	delete_productpersale
+40	Can add cart	14	add_cart
+41	Can change cart	14	change_cart
+42	Can delete cart	14	delete_cart
+43	Can add command	15	add_command
+44	Can change command	15	change_command
+45	Can delete command	15	delete_command
+46	Can add cart content	16	add_cartcontent
+47	Can change cart content	16	change_cartcontent
+48	Can delete cart content	16	delete_cartcontent
+49	Can add command content	17	add_commandcontent
+50	Can change command content	17	change_commandcontent
+51	Can delete command content	17	delete_commandcontent
+\.
+
+
+--
+-- TOC entry 2285 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 51, true);
+
+
+--
+-- TOC entry 2206 (class 0 OID 90267)
+-- Dependencies: 179
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+2	pbkdf2_sha256$24000$Pb0irkdYuqOh$JvUMt3WBFJS7d8DnuZi+gi1dqvn+8Kv0S8aG8GrtD0M=	2016-07-15 03:13:08.139+02	t	yann			yann.serrand@gmail.com	t	t	2016-07-14 02:47:56.723+02
+7	hi	\N	f	yet	er	er	yann.fserrand@gmail.com	f	t	2016-07-15 05:29:35.654+02
+\.
+
+
+--
+-- TOC entry 2208 (class 0 OID 90277)
+-- Dependencies: 181
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2286 (class 0 OID 0)
+-- Dependencies: 180
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- TOC entry 2287 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 7, true);
+
+
+--
+-- TOC entry 2210 (class 0 OID 90285)
+-- Dependencies: 183
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2288 (class 0 OID 0)
+-- Dependencies: 182
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- TOC entry 2212 (class 0 OID 90345)
+-- Dependencies: 185
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2289 (class 0 OID 0)
+-- Dependencies: 184
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 1, false);
+
+
+--
+-- TOC entry 2198 (class 0 OID 90231)
+-- Dependencies: 171
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	auth	user
+5	contenttypes	contenttype
+6	sessions	session
+7	app	client
+8	app	producer
+9	app	unittype
+10	app	producttype
+11	app	product
+12	app	sale
+13	app	productpersale
+14	app	cart
+15	app	command
+16	app	cartcontent
+17	app	commandcontent
+\.
+
+
+--
+-- TOC entry 2290 (class 0 OID 0)
+-- Dependencies: 170
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 17, true);
+
+
+--
+-- TOC entry 2196 (class 0 OID 90220)
+-- Dependencies: 169
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2016-07-10 23:58:33.36+02
+2	auth	0001_initial	2016-07-10 23:58:33.561+02
+3	admin	0001_initial	2016-07-10 23:58:33.616+02
+4	admin	0002_logentry_remove_auto_add	2016-07-10 23:58:33.639+02
+5	contenttypes	0002_remove_content_type_name	2016-07-10 23:58:33.683+02
+6	auth	0002_alter_permission_name_max_length	2016-07-10 23:58:33.703+02
+7	auth	0003_alter_user_email_max_length	2016-07-10 23:58:33.723+02
+8	auth	0004_alter_user_username_opts	2016-07-10 23:58:33.741+02
+9	auth	0005_alter_user_last_login_null	2016-07-10 23:58:33.764+02
+10	auth	0006_require_contenttypes_0002	2016-07-10 23:58:33.769+02
+11	auth	0007_alter_validators_add_error_messages	2016-07-10 23:58:33.786+02
+12	sessions	0001_initial	2016-07-10 23:58:33.822+02
+13	app	0001_initial	2016-07-13 05:17:44.519+02
+14	app	0002_sale_active	2016-07-13 05:48:41.785+02
+15	app	0003_auto_20160713_0549	2016-07-13 05:49:19.41+02
+16	app	0004_producer_name	2016-07-14 01:25:58.597+02
+17	app	0005_client_user	2016-07-14 03:34:43.367+02
+18	app	0006_auto_20160714_0336	2016-07-14 03:36:39.057+02
+19	app	0007_auto_20160714_2335	2016-07-14 23:38:11.104+02
+20	app	0008_auto_20160714_2358	2016-07-14 23:58:13.299+02
+\.
+
+
+--
+-- TOC entry 2291 (class 0 OID 0)
+-- Dependencies: 168
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: queen
+--
+
+SELECT pg_catalog.setval('django_migrations_id_seq', 20, true);
+
+
+--
+-- TOC entry 2213 (class 0 OID 90368)
+-- Dependencies: 186
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: queen
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+7npagsjbizynberycmotkra5vbjzpbtr	M2Y5ODYxNDcwNTZhMGZhYjJjYTNjYTBmMDBkMDcyMzQ3ZTIzZGMxNTp7Il9hdXRoX3VzZXJfaGFzaCI6IjAzNTBjNGU0MGMzZDdmM2RlMTgwNDBiZTdiNTBjNzIwMDJkNDUyNzciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0=	2016-07-29 03:13:08.154+02
+\.
+
+
+--
+-- TOC entry 2055 (class 2606 OID 106690)
+-- Name: app_cart_cart_content_cart_id_bb163a39_uniq; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_cart_cart_content
+    ADD CONSTRAINT app_cart_cart_content_cart_id_bb163a39_uniq UNIQUE (cart_id, cartcontent_id);
+
+
+--
+-- TOC entry 2057 (class 2606 OID 106658)
+-- Name: app_cart_cart_content_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_cart_cart_content
+    ADD CONSTRAINT app_cart_cart_content_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2020 (class 2606 OID 98404)
+-- Name: app_cart_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_cart
+    ADD CONSTRAINT app_cart_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2048 (class 2606 OID 106642)
+-- Name: app_cartcontent_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_cartcontent
+    ADD CONSTRAINT app_cartcontent_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2022 (class 2606 OID 98415)
+-- Name: app_client_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_client
+    ADD CONSTRAINT app_client_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2024 (class 2606 OID 106599)
+-- Name: app_client_user_id_key; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_client
+    ADD CONSTRAINT app_client_user_id_key UNIQUE (user_id);
+
+
+--
+-- TOC entry 2061 (class 2606 OID 106704)
+-- Name: app_command_command_content_command_id_2a2e7184_uniq; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_command_command_content
+    ADD CONSTRAINT app_command_command_content_command_id_2a2e7184_uniq UNIQUE (command_id, commandcontent_id);
+
+
+--
+-- TOC entry 2063 (class 2606 OID 106666)
+-- Name: app_command_command_content_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_command_command_content
+    ADD CONSTRAINT app_command_command_content_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2028 (class 2606 OID 98423)
+-- Name: app_command_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_command
+    ADD CONSTRAINT app_command_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2051 (class 2606 OID 106650)
+-- Name: app_commandcontent_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_commandcontent
+    ADD CONSTRAINT app_commandcontent_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2030 (class 2606 OID 98434)
+-- Name: app_producer_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_producer
+    ADD CONSTRAINT app_producer_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2035 (class 2606 OID 98445)
+-- Name: app_product_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_product
+    ADD CONSTRAINT app_product_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2039 (class 2606 OID 98453)
+-- Name: app_productpersale_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_productpersale
+    ADD CONSTRAINT app_productpersale_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2041 (class 2606 OID 98464)
+-- Name: app_producttype_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_producttype
+    ADD CONSTRAINT app_producttype_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2043 (class 2606 OID 98472)
+-- Name: app_sale_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_sale
+    ADD CONSTRAINT app_sale_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2045 (class 2606 OID 98480)
+-- Name: app_unittype_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY app_unittype
+    ADD CONSTRAINT app_unittype_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1983 (class 2606 OID 90256)
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- TOC entry 1989 (class 2606 OID 90311)
+-- Name: auth_group_permissions_group_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- TOC entry 1991 (class 2606 OID 90264)
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1985 (class 2606 OID 90254)
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1978 (class 2606 OID 90297)
+-- Name: auth_permission_content_type_id_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- TOC entry 1980 (class 2606 OID 90246)
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2000 (class 2606 OID 90282)
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2002 (class 2606 OID 90326)
+-- Name: auth_user_groups_user_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- TOC entry 1993 (class 2606 OID 90272)
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2006 (class 2606 OID 90290)
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2008 (class 2606 OID 90340)
+-- Name: auth_user_user_permissions_user_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- TOC entry 1996 (class 2606 OID 90274)
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- TOC entry 2012 (class 2606 OID 90354)
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1973 (class 2606 OID 90238)
+-- Name: django_content_type_app_label_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- TOC entry 1975 (class 2606 OID 90236)
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1971 (class 2606 OID 90228)
+-- Name: django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2015 (class 2606 OID 90375)
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: queen; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- TOC entry 2017 (class 1259 OID 98573)
+-- Name: app_cart_2506e0ba; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_cart_2506e0ba ON app_cart USING btree (sale_id);
+
+
+--
+-- TOC entry 2018 (class 1259 OID 98553)
+-- Name: app_cart_2bfe9d72; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_cart_2bfe9d72 ON app_cart USING btree (client_id);
+
+
+--
+-- TOC entry 2052 (class 1259 OID 106692)
+-- Name: app_cart_cart_content_89ffe65a; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_cart_cart_content_89ffe65a ON app_cart_cart_content USING btree (cartcontent_id);
+
+
+--
+-- TOC entry 2053 (class 1259 OID 106691)
+-- Name: app_cart_cart_content_c44d83f7; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_cart_cart_content_c44d83f7 ON app_cart_cart_content USING btree (cart_id);
+
+
+--
+-- TOC entry 2046 (class 1259 OID 106672)
+-- Name: app_cartcontent_9bea82de; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_cartcontent_9bea82de ON app_cartcontent USING btree (product_id);
+
+
+--
+-- TOC entry 2025 (class 1259 OID 98547)
+-- Name: app_command_2506e0ba; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_command_2506e0ba ON app_command USING btree (sale_id);
+
+
+--
+-- TOC entry 2026 (class 1259 OID 98502)
+-- Name: app_command_2bfe9d72; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_command_2bfe9d72 ON app_command USING btree (client_id);
+
+
+--
+-- TOC entry 2058 (class 1259 OID 106705)
+-- Name: app_command_command_content_3c0cd563; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_command_command_content_3c0cd563 ON app_command_command_content USING btree (command_id);
+
+
+--
+-- TOC entry 2059 (class 1259 OID 106706)
+-- Name: app_command_command_content_a37c8171; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_command_command_content_a37c8171 ON app_command_command_content USING btree (commandcontent_id);
+
+
+--
+-- TOC entry 2049 (class 1259 OID 106678)
+-- Name: app_commandcontent_9bea82de; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_commandcontent_9bea82de ON app_commandcontent USING btree (product_id);
+
+
+--
+-- TOC entry 2031 (class 1259 OID 98521)
+-- Name: app_product_d9862cd8; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_product_d9862cd8 ON app_product USING btree (product_type_id);
+
+
+--
+-- TOC entry 2032 (class 1259 OID 98527)
+-- Name: app_product_e8175980; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_product_e8175980 ON app_product USING btree (unit_id);
+
+
+--
+-- TOC entry 2033 (class 1259 OID 98508)
+-- Name: app_product_ffd0e4bf; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_product_ffd0e4bf ON app_product USING btree (producer_id);
+
+
+--
+-- TOC entry 2036 (class 1259 OID 98515)
+-- Name: app_productpersale_2506e0ba; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_productpersale_2506e0ba ON app_productpersale USING btree (sale_id);
+
+
+--
+-- TOC entry 2037 (class 1259 OID 98514)
+-- Name: app_productpersale_9bea82de; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX app_productpersale_9bea82de ON app_productpersale USING btree (product_id);
+
+
+--
+-- TOC entry 1981 (class 1259 OID 90299)
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- TOC entry 1986 (class 1259 OID 90312)
+-- Name: auth_group_permissions_0e939a4f; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_0e939a4f ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- TOC entry 1987 (class 1259 OID 90313)
+-- Name: auth_group_permissions_8373b171; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_8373b171 ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- TOC entry 1976 (class 1259 OID 90298)
+-- Name: auth_permission_417f1b1c; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX auth_permission_417f1b1c ON auth_permission USING btree (content_type_id);
+
+
+--
+-- TOC entry 1997 (class 1259 OID 90328)
+-- Name: auth_user_groups_0e939a4f; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_0e939a4f ON auth_user_groups USING btree (group_id);
+
+
+--
+-- TOC entry 1998 (class 1259 OID 90327)
+-- Name: auth_user_groups_e8701ad4; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_e8701ad4 ON auth_user_groups USING btree (user_id);
+
+
+--
+-- TOC entry 2003 (class 1259 OID 90342)
+-- Name: auth_user_user_permissions_8373b171; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_8373b171 ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- TOC entry 2004 (class 1259 OID 90341)
+-- Name: auth_user_user_permissions_e8701ad4; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_e8701ad4 ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- TOC entry 1994 (class 1259 OID 90314)
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- TOC entry 2009 (class 1259 OID 90365)
+-- Name: django_admin_log_417f1b1c; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_417f1b1c ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- TOC entry 2010 (class 1259 OID 90366)
+-- Name: django_admin_log_e8701ad4; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_e8701ad4 ON django_admin_log USING btree (user_id);
+
+
+--
+-- TOC entry 2013 (class 1259 OID 90376)
+-- Name: django_session_de54fa62; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX django_session_de54fa62 ON django_session USING btree (expire_date);
+
+
+--
+-- TOC entry 2016 (class 1259 OID 90377)
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: queen; Tablespace: 
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- TOC entry 2086 (class 2606 OID 106684)
+-- Name: app_cart_cart_con_cartcontent_id_bf838dd7_fk_app_cartcontent_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_cart_cart_content
+    ADD CONSTRAINT app_cart_cart_con_cartcontent_id_bf838dd7_fk_app_cartcontent_id FOREIGN KEY (cartcontent_id) REFERENCES app_cartcontent(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2085 (class 2606 OID 106679)
+-- Name: app_cart_cart_content_cart_id_a3ca4a20_fk_app_cart_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_cart_cart_content
+    ADD CONSTRAINT app_cart_cart_content_cart_id_a3ca4a20_fk_app_cart_id FOREIGN KEY (cart_id) REFERENCES app_cart(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2074 (class 2606 OID 106613)
+-- Name: app_cart_client_id_2be9f5ba_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_cart
+    ADD CONSTRAINT app_cart_client_id_2be9f5ba_fk_auth_user_id FOREIGN KEY (client_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2073 (class 2606 OID 98574)
+-- Name: app_cart_sale_id_e55e6f29_fk_app_sale_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_cart
+    ADD CONSTRAINT app_cart_sale_id_e55e6f29_fk_app_sale_id FOREIGN KEY (sale_id) REFERENCES app_sale(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2083 (class 2606 OID 106667)
+-- Name: app_cartcontent_product_id_bb1e9942_fk_app_product_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_cartcontent
+    ADD CONSTRAINT app_cartcontent_product_id_bb1e9942_fk_app_product_id FOREIGN KEY (product_id) REFERENCES app_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2075 (class 2606 OID 106630)
+-- Name: app_client_user_id_df70f6f4_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_client
+    ADD CONSTRAINT app_client_user_id_df70f6f4_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2077 (class 2606 OID 106618)
+-- Name: app_command_client_id_bc9547ef_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_command
+    ADD CONSTRAINT app_command_client_id_bc9547ef_fk_auth_user_id FOREIGN KEY (client_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2087 (class 2606 OID 106693)
+-- Name: app_command_command_conte_command_id_ecba314b_fk_app_command_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_command_command_content
+    ADD CONSTRAINT app_command_command_conte_command_id_ecba314b_fk_app_command_id FOREIGN KEY (command_id) REFERENCES app_command(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2088 (class 2606 OID 106698)
+-- Name: app_command_commandcontent_id_84f2f347_fk_app_commandcontent_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_command_command_content
+    ADD CONSTRAINT app_command_commandcontent_id_84f2f347_fk_app_commandcontent_id FOREIGN KEY (commandcontent_id) REFERENCES app_commandcontent(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2076 (class 2606 OID 98548)
+-- Name: app_command_sale_id_cb66d0b3_fk_app_sale_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_command
+    ADD CONSTRAINT app_command_sale_id_cb66d0b3_fk_app_sale_id FOREIGN KEY (sale_id) REFERENCES app_sale(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2084 (class 2606 OID 106673)
+-- Name: app_commandcontent_product_id_96aa7f82_fk_app_product_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_commandcontent
+    ADD CONSTRAINT app_commandcontent_product_id_96aa7f82_fk_app_product_id FOREIGN KEY (product_id) REFERENCES app_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2078 (class 2606 OID 98503)
+-- Name: app_product_producer_id_d2dc7493_fk_app_producer_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_product
+    ADD CONSTRAINT app_product_producer_id_d2dc7493_fk_app_producer_id FOREIGN KEY (producer_id) REFERENCES app_producer(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2079 (class 2606 OID 98522)
+-- Name: app_product_product_type_id_c640f44d_fk_app_producttype_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_product
+    ADD CONSTRAINT app_product_product_type_id_c640f44d_fk_app_producttype_id FOREIGN KEY (product_type_id) REFERENCES app_producttype(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2080 (class 2606 OID 98528)
+-- Name: app_product_unit_id_a43f41b6_fk_app_unittype_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_product
+    ADD CONSTRAINT app_product_unit_id_a43f41b6_fk_app_unittype_id FOREIGN KEY (unit_id) REFERENCES app_unittype(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2081 (class 2606 OID 98509)
+-- Name: app_productpersale_product_id_6a57f5b5_fk_app_product_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_productpersale
+    ADD CONSTRAINT app_productpersale_product_id_6a57f5b5_fk_app_product_id FOREIGN KEY (product_id) REFERENCES app_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2082 (class 2606 OID 98516)
+-- Name: app_productpersale_sale_id_b9b7f13d_fk_app_sale_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY app_productpersale
+    ADD CONSTRAINT app_productpersale_sale_id_b9b7f13d_fk_app_sale_id FOREIGN KEY (sale_id) REFERENCES app_sale(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2066 (class 2606 OID 90305)
+-- Name: auth_group_permiss_permission_id_84c5c92e_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permiss_permission_id_84c5c92e_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2065 (class 2606 OID 90300)
+-- Name: auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2064 (class 2606 OID 90291)
+-- Name: auth_permiss_content_type_id_2f476e4b_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permiss_content_type_id_2f476e4b_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2068 (class 2606 OID 90320)
+-- Name: auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2067 (class 2606 OID 90315)
+-- Name: auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2070 (class 2606 OID 90334)
+-- Name: auth_user_user_per_permission_id_1fbb5f2c_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_per_permission_id_1fbb5f2c_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2069 (class 2606 OID 90329)
+-- Name: auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2071 (class 2606 OID 90355)
+-- Name: django_admin_content_type_id_c4bce8eb_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_content_type_id_c4bce8eb_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2072 (class 2606 OID 90360)
+-- Name: django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: queen
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2246 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2016-07-15 06:13:38
+
+--
+-- PostgreSQL database dump complete
+--
+
