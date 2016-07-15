@@ -6,12 +6,13 @@ from . import views
 urlpatterns = [
 
     
-    url(r'^accounts/login/$', auth_views.login, {'template_name' : 'login.html'}, name='login'),
-    url(r'^accounts/profile/$', views.profile, name='profile'),
-    url(r'^accounts/password_reset/$', auth_views.password_reset, name='password_reset'),
+    url(r'^accounts/login/$', auth_views.login, {'template_name' : 'login.html'}, name = 'login'),
+    url(r'^accounts/profile/$', views.profile, name = 'profile'),
+    url(r'^accounts/logout/$', auth_views.logout,{'template_name': 'logged_out.html'}, name = 'logout'), 
+    url(r'^accounts/password_reset/$', auth_views.password_reset, name = 'password_reset'),
     url(r'^accounts/password_reset/done/$', auth_views.password_reset_done, name = 'password_reset_done'),
-    url(r'^reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', auth_views.password_reset_confirm, name='password_reset_confirm'),
-    url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
+    url(r'^reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', auth_views.password_reset_confirm, name = 'password_reset_confirm'),
+    url(r'^reset/done/$', auth_views.password_reset_complete, name = 'password_reset_complete'),
     
     url(r'^$', views.index, name='index'),
     
