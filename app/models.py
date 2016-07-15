@@ -63,17 +63,31 @@ class ProductPerSale(models.Model):
     available_quantity = models.IntegerField()
 
 
+class CartContent(models.Model):
+    
+    product = models.ForeignKey(Product)
+    quantity = models.IntegerField()
+    
+    @property
+    def cost(self):
+        return self.quantity * self.product.price
+    
+    
 class Cart(models.Model):
     
     client = models.ForeignKey(User)
     sale = models.ForeignKey(Sale)
-    products = models.ManyToManyField(Product)
-    quantity = models.IntegerField()
+    cart_content = models.ManyToManyField(CartContent)
+
+class CommandContent(models.Model):
+    
+    product = models.ForeignKey(Product)
+    quantity = models.IntegerField()    
 
 class Command(models.Model):
     
     client = models.ForeignKey(User)
     sale = models.ForeignKey(Sale)
-    products = models.ManyToManyField(Product)
+    command_content = models.ManyToManyField(CommandContent)
     
     
